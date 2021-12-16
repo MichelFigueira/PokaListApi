@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PokaList.Domain\PokaList.Domain.csproj" />
+    <ProjectReference Include="..\PokaList.Persistence\PokaList.Persistence.csproj" />
+  </ItemGroup>
+
+</Project>
