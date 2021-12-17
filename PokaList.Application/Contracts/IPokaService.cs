@@ -1,19 +1,16 @@
-﻿using PokaList.Domain;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using PokaList.Application.Dtos;
+using PokaList.Domain;
 using System.Threading.Tasks;
 
 namespace PokaList.Application.Contracts
 {
     public interface IPokaService
     {
-        Task<Poka> AddPoka(Poka model);
-        Task<Poka> UpdatePoka(int pokaId, Poka model);
+        Task<PokaDto> AddPoka(PokaDto model);
+        Task<PokaDto> UpdatePoka(int pokaId, PokaDto model);
         Task<bool> DeletePoka(int pokaId);
 
-        Task<Poka[]> GetAllPokasAsync();
-        Task<Poka> GetPokaByIdAsync(int pokaId);
+        Task<PokaDto[]> GetAllPokasAsync();
+        Task<PokaDto> GetPokaByIdAsync(int pokaId);
     }
 }

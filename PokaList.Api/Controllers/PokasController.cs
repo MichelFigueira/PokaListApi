@@ -1,11 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PokaList.Application.Contracts;
-using PokaList.Domain;
-using PokaList.Persistence.Contexts;
+using PokaList.Application.Dtos;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace PokaList.Api.Controllers
@@ -54,7 +51,7 @@ namespace PokaList.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(Poka model)
+        public async Task<IActionResult> Post(PokaDto model)
         {
             try
             {
@@ -70,11 +67,11 @@ namespace PokaList.Api.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int pokaId, Poka model)
+        public async Task<IActionResult> Put(int id, PokaDto model)
         {
             try
             {
-                var poka = await _pokaService.UpdatePoka(pokaId, model);
+                var poka = await _pokaService.UpdatePoka(id, model);
                 if (poka == null) return BadRequest();
 
                 return Ok(poka);

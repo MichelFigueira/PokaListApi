@@ -5,10 +5,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using PokaList.Application;
 using PokaList.Application.Contracts;
 using PokaList.Persistence;
 using PokaList.Persistence.Contexts;
 using PokaList.Persistence.Contracts;
+using System;
 
 namespace PokaList.Api
 {
@@ -31,6 +33,8 @@ namespace PokaList.Api
                     .AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling =
                         Newtonsoft.Json.ReferenceLoopHandling.Ignore
             );
+
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             services.AddScoped<IPokaService, PokaService>();
             services.AddScoped<IDefaultPersist, DefaultPersist>();
