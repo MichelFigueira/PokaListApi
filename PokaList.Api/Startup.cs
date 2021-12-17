@@ -36,9 +36,11 @@ namespace PokaList.Api
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-            services.AddScoped<IPokaService, PokaService>();
             services.AddScoped<IDefaultPersist, DefaultPersist>();
+            services.AddScoped<IPokaService, PokaService>();
             services.AddScoped<IPokaPersist, PokaPersist>();
+            services.AddScoped<IGroupService, GroupService>();
+            services.AddScoped<IGroupPersist, GroupPersist>();
 
             services.AddCors();
             services.AddSwaggerGen(c =>

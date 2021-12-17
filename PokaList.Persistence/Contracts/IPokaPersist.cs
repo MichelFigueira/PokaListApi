@@ -7,8 +7,5 @@ namespace PokaList.Persistence.Contracts
     {
         Task<Poka[]> GetAllPokasAsync();
         Task<Poka> GetPokaByIdAsync(int EventoId);
-
-        Task<Group[]> GetAllGroupsAsync();
-        Task<Group> GetGroupByIdAsync(int groupId);
     }
 }
