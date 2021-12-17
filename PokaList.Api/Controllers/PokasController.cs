@@ -24,7 +24,7 @@ namespace PokaList.Api.Controllers
             try
             {
                 var pokas = await _pokaService.GetAllPokasAsync();
-                if (pokas == null) return NotFound();
+                if (pokas == null) return NoContent();
 
                 return Ok(pokas);
             }
@@ -40,7 +40,7 @@ namespace PokaList.Api.Controllers
             try
             {
                 var poka = await _pokaService.GetPokaByIdAsync(id);
-                if (poka == null) return NotFound();
+                if (poka == null) return NoContent();
 
                 return Ok(poka);
             }
@@ -56,7 +56,7 @@ namespace PokaList.Api.Controllers
             try
             {
                 var poka = await _pokaService.AddPoka(model);
-                if (poka == null) return BadRequest();
+                if (poka == null) return NoContent();
 
                 return Ok(poka);
             }
@@ -72,7 +72,7 @@ namespace PokaList.Api.Controllers
             try
             {
                 var poka = await _pokaService.UpdatePoka(id, model);
-                if (poka == null) return BadRequest();
+                if (poka == null) return NoContent();
 
                 return Ok(poka);
             }
