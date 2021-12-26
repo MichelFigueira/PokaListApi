@@ -18,4 +18,8 @@
     <ProjectReference Include="..\PokaList.Domain\PokaList.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
 </Project>

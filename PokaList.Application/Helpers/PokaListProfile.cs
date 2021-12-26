@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using PokaList.Application.Dtos;
 using PokaList.Domain;
+using PokaList.Domain.Identity;
 
 namespace PokaList.Application.Helpers
 {
@@ -10,6 +11,9 @@ namespace PokaList.Application.Helpers
         {
             CreateMap<Poka, PokaDto>().ReverseMap();
             CreateMap<Group, GroupDto>().ReverseMap();
+            CreateMap<User, UserDto>().ReverseMap();
+            CreateMap<User, UserLoginDto>().ReverseMap();
+            CreateMap<User, UserUpdateDto>().ReverseMap();
         }
     }
 }
