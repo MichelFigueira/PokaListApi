@@ -5,7 +5,7 @@ namespace PokaList.Persistence.Contracts
 {
     public interface IPokaPersist
     {
-        Task<Poka[]> GetAllPokasAsync();
-        Task<Poka> GetPokaByIdAsync(int EventoId);
+        Task<Poka[]> GetAllPokasAsync(int userId);
+        Task<Poka> GetPokaByIdAsync(int userId, int EventoId);
     }
 }

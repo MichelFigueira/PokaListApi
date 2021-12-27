@@ -20,17 +20,18 @@ namespace PokaList.Application
             _pokaPersist = pokaPersist;
             _mapper = mapper;
         }
-        public async Task<PokaDto> AddPoka(PokaDto model)
+        public async Task<PokaDto> AddPoka(int userId, PokaDto model)
         {
             try
             {
                 var poka = _mapper.Map<Poka>(model);
+                poka.UserId = userId;
 
                 _defaultPersist.Add<Poka>(poka);
 
                 if (await _defaultPersist.SaveChangesAsync())
                 {
-                    var result = await _pokaPersist.GetPokaByIdAsync(poka.Id);
+                    var result = await _pokaPersist.GetPokaByIdAsync(userId, poka.Id);
                     return _mapper.Map<PokaDto>(result);
                 }
                 return null;
@@ -41,14 +42,15 @@ namespace PokaList.Application
             }
         }
 
-        public async Task<PokaDto> UpdatePoka(int pokaId, PokaDto model)
+        public async Task<PokaDto> UpdatePoka(int userId, int pokaId, PokaDto model)
         {
             try
             {
-                var poka = await _pokaPersist.GetPokaByIdAsync(pokaId);
+                var poka = await _pokaPersist.GetPokaByIdAsync(userId, pokaId);
                 if (poka == null) return null;
 
                 model.Id = poka.Id;
+                model.UserId = poka.UserId;
 
                 _mapper.Map(model, poka);
 
@@ -56,7 +58,7 @@ namespace PokaList.Application
 
                 if (await _defaultPersist.SaveChangesAsync())
                 {
-                    var result = await _pokaPersist.GetPokaByIdAsync(poka.Id);
+                    var result = await _pokaPersist.GetPokaByIdAsync(userId, poka.Id);
                     return _mapper.Map<PokaDto>(result);
                 }
                 return null;
@@ -68,16 +70,16 @@ namespace PokaList.Application
             }
         }
 
-        public Task<bool> DeletePoka(int pokaId)
+        public Task<bool> DeletePoka(int userId, int pokaId)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<PokaDto[]> GetAllPokasAsync()
+        public async Task<PokaDto[]> GetAllPokasAsync(int userId)
         {
             try
             {
-                var pokas = await _pokaPersist.GetAllPokasAsync();
+                var pokas = await _pokaPersist.GetAllPokasAsync(userId);
                 if (pokas == null) return null;
 
                 var result = _mapper.Map<PokaDto[]>(pokas);
@@ -90,11 +92,11 @@ namespace PokaList.Application
             }
         }
 
-        public async Task<PokaDto> GetPokaByIdAsync(int pokaId)
+        public async Task<PokaDto> GetPokaByIdAsync(int userId, int pokaId)
         {
             try
             {
-                var poka = await _pokaPersist.GetPokaByIdAsync(pokaId);
+                var poka = await _pokaPersist.GetPokaByIdAsync(userId, pokaId);
                 if (poka == null) return null;
 
                 var result = _mapper.Map<PokaDto>(poka);

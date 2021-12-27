@@ -6,11 +6,11 @@ namespace PokaList.Application.Contracts
 {
     public interface IPokaService
     {
-        Task<PokaDto> AddPoka(PokaDto model);
-        Task<PokaDto> UpdatePoka(int pokaId, PokaDto model);
-        Task<bool> DeletePoka(int pokaId);
+        Task<PokaDto> AddPoka(int userId, PokaDto model);
+        Task<PokaDto> UpdatePoka(int userId, int pokaId, PokaDto model);
+        Task<bool> DeletePoka(int userId, int pokaId);
 
-        Task<PokaDto[]> GetAllPokasAsync();
-        Task<PokaDto> GetPokaByIdAsync(int pokaId);
+        Task<PokaDto[]> GetAllPokasAsync(int userId);
+        Task<PokaDto> GetPokaByIdAsync(int userId, int pokaId);
     }
 }

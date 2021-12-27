@@ -20,17 +20,18 @@ namespace PokaList.Application
             _groupPersist = groupPersist;
             _mapper = mapper;
         }
-        public async Task<GroupDto> AddGroup(GroupDto model)
+        public async Task<GroupDto> AddGroup(int userId, GroupDto model)
         {
             try
             {
                 var group = _mapper.Map<Group>(model);
+                group.UserId = userId;
 
                 _defaultPersist.Add<Group>(group);
 
                 if (await _defaultPersist.SaveChangesAsync())
                 {
-                    var result = await _groupPersist.GetGroupByIdAsync(group.Id);
+                    var result = await _groupPersist.GetGroupByIdAsync(userId, group.Id);
                     return _mapper.Map<GroupDto>(result);
                 }
                 return null;
@@ -41,14 +42,15 @@ namespace PokaList.Application
             }
         }
 
-        public async Task<GroupDto> UpdateGroup(int groupId, GroupDto model)
+        public async Task<GroupDto> UpdateGroup(int userId, int groupId, GroupDto model)
         {
             try
             {
-                var group = await _groupPersist.GetGroupByIdAsync(groupId);
+                var group = await _groupPersist.GetGroupByIdAsync(userId, groupId);
                 if (group == null) return null;
 
                 model.Id = group.Id;
+                model.UserId = group.UserId;
 
                 _mapper.Map(model, group);
 
@@ -56,7 +58,7 @@ namespace PokaList.Application
 
                 if (await _defaultPersist.SaveChangesAsync())
                 {
-                    var result = await _groupPersist.GetGroupByIdAsync(group.Id);
+                    var result = await _groupPersist.GetGroupByIdAsync(userId, group.Id);
                     return _mapper.Map<GroupDto>(result);
                 }
                 return null;
@@ -68,16 +70,16 @@ namespace PokaList.Application
             }
         }
 
-        public Task<bool> DeleteGroup(int groupId)
+        public Task<bool> DeleteGroup(int userId, int groupId)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<GroupDto[]> GetAllGroupsAsync()
+        public async Task<GroupDto[]> GetAllGroupsAsync(int userId)
         {
             try
             {
-                var groups = await _groupPersist.GetAllGroupsAsync();
+                var groups = await _groupPersist.GetAllGroupsAsync(userId);
                 if (groups == null) return null;
 
                 var result = _mapper.Map<GroupDto[]>(groups);
@@ -90,11 +92,11 @@ namespace PokaList.Application
             }
         }
 
-        public async Task<GroupDto> GetGroupByIdAsync(int groupId)
+        public async Task<GroupDto> GetGroupByIdAsync(int userId, int groupId)
         {
             try
             {
-                var group = await _groupPersist.GetGroupByIdAsync(groupId);
+                var group = await _groupPersist.GetGroupByIdAsync(userId, groupId);
                 if (group == null) return null;
 
                 var result = _mapper.Map<GroupDto>(group);

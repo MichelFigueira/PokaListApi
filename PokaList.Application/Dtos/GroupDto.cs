@@ -10,5 +10,7 @@ namespace PokaList.Application.Dtos
         [MinLength(5), MaxLength(50)]
         public string Title { get; set; }
         public IEnumerable<PokaDto> Pokas { get; set; }
+        public int UserId { get; set; }
+        public UserDto User { get; set; }
     }
 }

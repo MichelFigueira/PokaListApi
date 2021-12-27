@@ -5,7 +5,7 @@ namespace PokaList.Persistence.Contracts
 {
     public interface IGroupPersist
     {
-        Task<Group[]> GetAllGroupsAsync();
-        Task<Group> GetGroupByIdAsync(int groupId);
+        Task<Group[]> GetAllGroupsAsync(int userId);
+        Task<Group> GetGroupByIdAsync(int userId, int groupId);
     }
 }

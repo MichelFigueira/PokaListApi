@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PokaList.Api.Extensions;
 using PokaList.Application.Contracts;
 using PokaList.Application.Dtos;
 using System;
@@ -12,10 +13,12 @@ namespace PokaList.Api.Controllers
     public class PokasController : ControllerBase
     {
         private readonly IPokaService _pokaService;
+        private readonly IUserService _userService;
 
-        public PokasController(IPokaService pokaService)
+        public PokasController(IPokaService pokaService, IUserService userService)
         {
             _pokaService = pokaService;
+            _userService = userService;
         }
 
         [HttpGet]
@@ -23,7 +26,7 @@ namespace PokaList.Api.Controllers
         {
             try
             {
-                var pokas = await _pokaService.GetAllPokasAsync();
+                var pokas = await _pokaService.GetAllPokasAsync(User.GetUserId());
                 if (pokas == null) return NoContent();
 
                 return Ok(pokas);
@@ -39,7 +42,7 @@ namespace PokaList.Api.Controllers
         {
             try
             {
-                var poka = await _pokaService.GetPokaByIdAsync(id);
+                var poka = await _pokaService.GetPokaByIdAsync(User.GetUserId(), id);
                 if (poka == null) return NoContent();
 
                 return Ok(poka);
@@ -55,7 +58,7 @@ namespace PokaList.Api.Controllers
         {
             try
             {
-                var poka = await _pokaService.AddPoka(model);
+                var poka = await _pokaService.AddPoka(User.GetUserId(), model);
                 if (poka == null) return NoContent();
 
                 return Ok(poka);
@@ -71,7 +74,7 @@ namespace PokaList.Api.Controllers
         {
             try
             {
-                var poka = await _pokaService.UpdatePoka(id, model);
+                var poka = await _pokaService.UpdatePoka(User.GetUserId(), id, model);
                 if (poka == null) return NoContent();
 
                 return Ok(poka);

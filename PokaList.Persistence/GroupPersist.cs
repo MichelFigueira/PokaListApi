@@ -18,19 +18,21 @@ namespace PokaList.Persistence
             _context.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
         }
         
-        public async Task<Group[]> GetAllGroupsAsync()
+        public async Task<Group[]> GetAllGroupsAsync(int userId)
         {
             IQueryable<Group> query = _context.Groups;
 
-            query = query.OrderBy(x => x.Id);
+            query = query
+                .Where(x => x.UserId == userId)
+                .OrderBy(x => x.Id);
 
             return await query.ToArrayAsync();
         }       
 
-        public async Task<Group> GetGroupByIdAsync(int groupId)
+        public async Task<Group> GetGroupByIdAsync(int userId, int groupId)
         {
             IQueryable<Group> query = _context.Groups
-                .Where(x => x.Id == groupId);
+                .Where(x => x.Id == groupId && x.UserId == userId);
 
             query = query.OrderBy(x => x.Id);
 

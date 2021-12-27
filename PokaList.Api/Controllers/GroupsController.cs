@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PokaList.Api.Extensions;
 using PokaList.Application.Contracts;
 using PokaList.Application.Dtos;
 using System;
@@ -12,10 +13,12 @@ namespace PokaList.Api.Controllers
     public class GroupsController : ControllerBase
     {
         private readonly IGroupService _groupService;
+        private readonly IUserService _userService;
 
-        public GroupsController(IGroupService groupService)
+        public GroupsController(IGroupService groupService, IUserService userService)
         {
             _groupService = groupService;
+            _userService = userService;
         }
 
         [HttpGet]
@@ -23,7 +26,7 @@ namespace PokaList.Api.Controllers
         {
             try
             {
-                var groups = await _groupService.GetAllGroupsAsync();
+                var groups = await _groupService.GetAllGroupsAsync(User.GetUserId());
                 if (groups == null) return NoContent();
 
                 return Ok(groups);
@@ -39,7 +42,7 @@ namespace PokaList.Api.Controllers
         {
             try
             {
-                var group = await _groupService.GetGroupByIdAsync(id);
+                var group = await _groupService.GetGroupByIdAsync(User.GetUserId(), id);
                 if (group == null) return NoContent();
 
                 return Ok(group);
@@ -55,7 +58,7 @@ namespace PokaList.Api.Controllers
         {
             try
             {
-                var group = await _groupService.AddGroup(model);
+                var group = await _groupService.AddGroup(User.GetUserId(), model);
                 if (group == null) return NoContent();
 
                 return Ok(group);
@@ -71,7 +74,7 @@ namespace PokaList.Api.Controllers
         {
             try
             {
-                var group = await _groupService.UpdateGroup(id, model);
+                var group = await _groupService.UpdateGroup(User.GetUserId(), id, model);
                 if (group == null) return NoContent();
 
                 return Ok(group);

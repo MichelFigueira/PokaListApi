@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using PokaList.Domain.Identity;
+using System.ComponentModel.DataAnnotations;
 
 namespace PokaList.Application.Dtos
 {
@@ -12,5 +13,7 @@ namespace PokaList.Application.Dtos
         [Required]
         public int GroupId { get; set; }
         public GroupDto Group { get; set; }
+        public int UserId { get; set; }
+        public UserDto User { get; set; }
     }
 }

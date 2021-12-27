@@ -17,25 +17,27 @@ namespace PokaList.Persistence
             _context = context;
             _context.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
         }
-        public async Task<Poka[]> GetAllPokasAsync()
+        public async Task<Poka[]> GetAllPokasAsync(int userId)
         {
             IQueryable<Poka> query = _context.Pokas
                 .Include(x => x.Group);
 
-            query = query.OrderBy(x => x.Id);
+            query = query
+                .Where(x => x.UserId == userId)
+                .OrderBy(x => x.Id);
 
             return await query.ToArrayAsync();
             
         }
-        public async Task<Poka> GetPokaByIdAsync(int pokaId)
+        public async Task<Poka> GetPokaByIdAsync(int userId, int pokaId)
         {
             IQueryable<Poka> query = _context.Pokas
-                .Where(x => x.Id == pokaId)
+                .Where(x => x.UserId == userId && x.Id == pokaId)
                 .Include(x => x.Group);
 
             query = query.OrderBy(x => x.Id);
 
             return await query.FirstOrDefaultAsync();
-        }     
+        }
     }
 }
