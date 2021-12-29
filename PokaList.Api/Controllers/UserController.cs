@@ -30,12 +30,8 @@ namespace PokaList.Api.Controllers
             {
                 var userName = User.GetUserName();
                 var user = await _userService.GetUserByUserNameAsync(userName);
-                return Ok(new
-                {
-                    userName = user.UserName,
-                    name = user.Name,
-                    token = _tokenService.CreateToken(user).Result
-                });
+                
+                return Ok(user);
             }
             catch (Exception ex)
             {
@@ -55,7 +51,12 @@ namespace PokaList.Api.Controllers
 
                 var user = await _userService.CreateAccountAsync(userDto);
                 if (user != null)
-                    return Ok(user);
+                    return Ok(new
+                    {
+                        userName = user.UserName,
+                        name = user.Name,
+                        token = _tokenService.CreateToken(user).Result
+                    });
 
                 return BadRequest("User not created!");
             }
