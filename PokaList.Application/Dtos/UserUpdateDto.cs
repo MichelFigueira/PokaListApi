@@ -17,6 +17,7 @@ namespace PokaList.Application.Dtos
         public string Country { get; set; }
         public string PostalCode { get; set; }
         public string About { get; set; }
+        public string PhotoURL { get; set; }
         public string Token { get; set; }
     }
 }

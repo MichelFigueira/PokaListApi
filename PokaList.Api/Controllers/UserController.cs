@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PokaList.Api.Extensions;
+using PokaList.Api.Helpers;
 using PokaList.Application.Contracts;
 using PokaList.Application.Dtos;
 using System;
@@ -16,11 +17,15 @@ namespace PokaList.Api.Controllers
     {
         private readonly IUserService _userService;
         private readonly ITokenService _tokenService;
+        private readonly IImageHelper _imagehelper;
 
-        public UserController(IUserService userService, ITokenService tokenService)
+        private readonly string _path = "ProfileImages";
+
+        public UserController(IUserService userService, ITokenService tokenService, IImageHelper imageHelper)
         {
             _userService = userService;
             _tokenService = tokenService;
+            _imagehelper = imageHelper;
         }
 
         [HttpGet("GetUser")]
@@ -115,6 +120,31 @@ namespace PokaList.Api.Controllers
             catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, $"Error: {ex.Message}");
+            }
+        }
+
+        [HttpPost("upload-image")]
+        public async Task<IActionResult> UploadImage()
+        {
+            try
+            {
+                var user = await _userService.GetUserByUserNameAsync(User.GetUserName());
+                if (user == null) return NoContent();
+
+                var file = Request.Form.Files[0];
+                if (file.Length > 0)
+                {
+                    _imagehelper.DeleteImage(user.PhotoURL, _path);
+                    user.PhotoURL = await _imagehelper.SaveImage(file, _path);
+                }
+                var userReturn = await _userService.UpdateAccount(user);
+
+                return Ok(userReturn);
+            }
+            catch (Exception ex)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError,
+                    $"Error: {ex.Message}");
             }
         }
 
