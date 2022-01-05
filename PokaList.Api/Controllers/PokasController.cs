@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using PokaList.Api.Extensions;
 using PokaList.Application.Contracts;
 using PokaList.Application.Dtos;
+using PokaList.Persistence.Models;
 using System;
 using System.Threading.Tasks;
 
@@ -22,12 +23,14 @@ namespace PokaList.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get([FromQuery]PageParams pageParams)
         {
             try
             {
-                var pokas = await _pokaService.GetAllPokasAsync(User.GetUserId());
+                var pokas = await _pokaService.GetAllPokasAsync(User.GetUserId(), pageParams);
                 if (pokas == null) return NoContent();
+
+                Response.AddPagination(pokas.CurrentPage, pokas.PageSize, pokas.TotalCount, pokas.TotalPages);
 
                 return Ok(pokas);
             }

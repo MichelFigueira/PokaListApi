@@ -3,6 +3,7 @@ using PokaList.Application.Contracts;
 using PokaList.Application.Dtos;
 using PokaList.Domain;
 using PokaList.Persistence.Contracts;
+using PokaList.Persistence.Models;
 using System;
 using System.Threading.Tasks;
 
@@ -75,14 +76,19 @@ namespace PokaList.Application
             throw new NotImplementedException();
         }
 
-        public async Task<PokaDto[]> GetAllPokasAsync(int userId)
+        public async Task<PageList<PokaDto>> GetAllPokasAsync(int userId, PageParams pageParams)
         {
             try
             {
-                var pokas = await _pokaPersist.GetAllPokasAsync(userId);
+                var pokas = await _pokaPersist.GetAllPokasAsync(userId, pageParams);
                 if (pokas == null) return null;
 
-                var result = _mapper.Map<PokaDto[]>(pokas);
+                var result = _mapper.Map<PageList<PokaDto>>(pokas);
+
+                result.CurrentPage = pokas.CurrentPage;
+                result.TotalPages = pokas.TotalPages;
+                result.PageSize = pokas.PageSize;
+                result.TotalCount = pokas.TotalCount;
 
                 return result;
             }

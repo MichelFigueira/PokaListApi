@@ -1,10 +1,11 @@
 ﻿
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using PokaList.Domain;
 using PokaList.Persistence.Contexts;
 using PokaList.Persistence.Contracts;
-using System.Linq;
-using System.Threading.Tasks;
+using PokaList.Persistence.Models;
 
 namespace PokaList.Persistence
 {
@@ -17,7 +18,7 @@ namespace PokaList.Persistence
             _context = context;
             _context.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
         }
-        public async Task<Poka[]> GetAllPokasAsync(int userId)
+        public async Task<PageList<Poka>> GetAllPokasAsync(int userId, PageParams pageParams)
         {
             IQueryable<Poka> query = _context.Pokas
                 .Include(x => x.Group);
@@ -26,7 +27,7 @@ namespace PokaList.Persistence
                 .Where(x => x.UserId == userId)
                 .OrderBy(x => x.Id);
 
-            return await query.ToArrayAsync();
+            return await PageList<Poka>.CreateAsync(query, pageParams.PageNumber, pageParams.PageSize);
             
         }
         public async Task<Poka> GetPokaByIdAsync(int userId, int pokaId)
