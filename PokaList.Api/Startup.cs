@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using PokaList.Api.Helpers;
 using PokaList.Application;
 using PokaList.Application.Contracts;
 using PokaList.Domain.Identity;
@@ -87,6 +88,8 @@ namespace PokaList.Api
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IUserPersist, UserPersist>();
+
+            services.AddScoped<IImageHelper, ImageHelper>();
 
             services.AddCors();
 
