@@ -13,6 +13,7 @@ namespace PokaList.Domain.Identity
         public string PostalCode { get; set; }
         public string About { get; set; }
         public string PhotoURL { get; set; }
+        public string StatusText { get; set; }
         public IEnumerable<UserRole> UserRoles { get; set; }
         public int? LoveUserId { get; set; }
     }

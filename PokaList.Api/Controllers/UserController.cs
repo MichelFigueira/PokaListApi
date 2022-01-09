@@ -87,6 +87,7 @@ namespace PokaList.Api.Controllers
                 {
                     userName = user.UserName,
                     name = user.Name,
+                    photoURL = user.PhotoURL,
                     token = _tokenService.CreateToken(user).Result
                 });
             }
@@ -114,6 +115,7 @@ namespace PokaList.Api.Controllers
                 {
                     userName = userReturn.UserName,
                     name = userReturn.Name,
+                    photoURL = user.PhotoURL,
                     token = _tokenService.CreateToken(userReturn).Result
                 });
             }
