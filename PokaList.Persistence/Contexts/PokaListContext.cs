@@ -30,6 +30,7 @@ namespace PokaList.Persistence.Contexts
                         .WithMany(r => r.UserRoles)
                         .HasForeignKey(ur => ur.UserId)
                         .IsRequired();
+
                 }
             );
 

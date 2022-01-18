@@ -6,7 +6,6 @@ using Microsoft.EntityFrameworkCore;
 using PokaList.Application.Contracts;
 using PokaList.Application.Dtos;
 using PokaList.Domain.Identity;
-using PokaList.Persistence;
 using PokaList.Persistence.Contracts;
 
 namespace PokaList.Application
@@ -47,12 +46,14 @@ namespace PokaList.Application
         {
             try
             {
+
                 var user = _mapper.Map<User>(userDto);
                 var result = await _userManager.CreateAsync(user, userDto.Password);
 
                 if (result.Succeeded)
                 {
                     var userToReturn = _mapper.Map<UserUpdateDto>(user);
+
                     return userToReturn;
                 }
 
