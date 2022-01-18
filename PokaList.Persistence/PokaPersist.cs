@@ -1,5 +1,4 @@
-﻿
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using PokaList.Domain;
@@ -24,8 +23,10 @@ namespace PokaList.Persistence
                 .Include(x => x.Group);
 
             query = query
-                .Where(x => x.UserId == userId)
-                .OrderBy(x => x.Id);
+                .Where(x => (x.Title.ToLower().Contains(pageParams.Term.ToLower()) ||
+                             x.Description.ToLower().Contains(pageParams.Term.ToLower())) &&
+                             x.UserId == userId)
+                .OrderBy(e => e.Id);
 
             return await PageList<Poka>.CreateAsync(query, pageParams.PageNumber, pageParams.PageSize);
             
