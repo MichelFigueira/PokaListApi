@@ -41,5 +41,38 @@ namespace PokaList.Persistence
 
             return await query.FirstOrDefaultAsync();
         }
+        public void CreateDefaultPokas(int userId, int countryId)
+        {
+
+            if (countryId == 2)
+            {
+
+                var newGroup = new Group { Title = "Prazeres", UserId = userId };
+                _context.Groups.Add(newGroup);
+                _context.SaveChanges();
+
+                _context.Pokas.AddRange(
+                    new Poka { Title = "Andar descalço na areia da praia", Description = "", GroupId = newGroup.Id, UserId = userId },
+                    new Poka { Title = "Voar de balão", Description = "", GroupId = newGroup.Id, UserId = userId },
+                    new Poka { Title = "Andar de pedalinho", Description = "", GroupId = newGroup.Id, UserId = userId },
+                    new Poka { Title = "Tomar banho de cachoeira", Description = "", GroupId = newGroup.Id, UserId = userId },
+                    new Poka { Title = "Ver o nascer do sol", Description = "", GroupId = newGroup.Id, UserId = userId }
+                 );
+                _context.SaveChanges();
+
+                newGroup = new Group { Title = "Comidas", UserId = userId };
+                _context.Groups.Add(newGroup);
+                _context.SaveChanges();
+
+                _context.Pokas.AddRange(
+                    new Poka { Title = "Beber um chopp bem gelado a tardinha", Description = "", GroupId = newGroup.Id, UserId = userId },
+                    new Poka { Title = "Comer a cebola do Outback", Description = "", GroupId = newGroup.Id, UserId = userId },
+                    new Poka { Title = "Tomar café na cama", Description = "", GroupId = newGroup.Id, UserId = userId }
+                 );
+                _context.SaveChanges();
+
+            }
+
+        }
     }
 }

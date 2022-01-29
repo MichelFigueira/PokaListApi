@@ -16,13 +16,15 @@ namespace PokaList.Application
         private readonly SignInManager<User> _signInManager;
         private readonly IMapper _mapper;
         private readonly IUserPersist _userPersist;
+        private readonly IPokaPersist _pokaPersist;
 
-        public UserService(UserManager<User> userManager, SignInManager<User> signInManager, IMapper mapper, IUserPersist userPersist)
+        public UserService(UserManager<User> userManager, SignInManager<User> signInManager, IMapper mapper, IUserPersist userPersist, IPokaPersist pokaPersist)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _mapper = mapper;
             _userPersist = userPersist;
+            _pokaPersist = pokaPersist;
         }
 
         public async Task<SignInResult> CheckUserPasswordAsync(UserUpdateDto userUpdateDto, string password)
@@ -53,6 +55,9 @@ namespace PokaList.Application
                 if (result.Succeeded)
                 {
                     var userToReturn = _mapper.Map<UserUpdateDto>(user);
+
+                    if (userDto.DefaultData == "true")
+                    _pokaPersist.CreateDefaultPokas(user.Id, 2);
 
                     return userToReturn;
                 }

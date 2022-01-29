@@ -8,5 +8,6 @@ namespace PokaList.Persistence.Contracts
     {
         Task<PageList<Poka>> GetAllPokasAsync(int userId, PageParams pageParams);
         Task<Poka> GetPokaByIdAsync(int userId, int EventoId);
+        public void CreateDefaultPokas(int userId, int countryId);
     }
 }
