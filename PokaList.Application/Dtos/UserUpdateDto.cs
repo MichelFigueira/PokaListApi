@@ -18,6 +18,7 @@ namespace PokaList.Application.Dtos
         public string PostalCode { get; set; }
         public string About { get; set; }
         public string PhotoURL { get; set; }
+        public byte[] PhotoBytes { get; set; }
         public string StatusText { get; set; }
         public string Token { get; set; }
     }

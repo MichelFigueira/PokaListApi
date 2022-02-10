@@ -6,6 +6,7 @@ using PokaList.Api.Helpers;
 using PokaList.Application.Contracts;
 using PokaList.Application.Dtos;
 using System;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace PokaList.Api.Controllers
@@ -87,7 +88,7 @@ namespace PokaList.Api.Controllers
                 {
                     userName = user.UserName,
                     name = user.Name,
-                    photoURL = user.PhotoURL,
+                    photoBytes = user.PhotoBytes,
                     token = _tokenService.CreateToken(user).Result
                 });
             }
@@ -115,7 +116,7 @@ namespace PokaList.Api.Controllers
                 {
                     userName = userReturn.UserName,
                     name = userReturn.Name,
-                    photoURL = user.PhotoURL,
+                    photoBytes = user.PhotoBytes,
                     token = _tokenService.CreateToken(userReturn).Result
                 });
             }
@@ -136,8 +137,16 @@ namespace PokaList.Api.Controllers
                 var file = Request.Form.Files[0];
                 if (file.Length > 0)
                 {
-                    _imagehelper.DeleteImage(user.PhotoURL, _path);
-                    user.PhotoURL = await _imagehelper.SaveImage(file, _path);
+                    byte[] p1 = null;
+                    using (var fs1 = file.OpenReadStream())
+                    using (var ms1 = new MemoryStream())
+                    {
+                        fs1.CopyTo(ms1);
+                        p1 = ms1.ToArray();
+                    }
+
+                    user.PhotoBytes = p1;
+
                 }
                 var userReturn = await _userService.UpdateAccount(user);
 
