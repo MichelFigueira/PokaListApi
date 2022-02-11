@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PokaList.Persistence.Contexts;
 
 namespace PokaList.Persistence.Migrations
 {
     [DbContext(typeof(PokaListContext))]
-    partial class PokaListContextModelSnapshot : ModelSnapshot
+    [Migration("20220210224459_New Fields in Poka")]
+    partial class NewFieldsinPoka
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -263,7 +265,7 @@ namespace PokaList.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("DateFinished")
+                    b.Property<DateTime>("DateFinished")
                         .HasColumnType("datetime");
 
                     b.Property<string>("Description")
