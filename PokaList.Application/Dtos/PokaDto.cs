@@ -10,7 +10,9 @@ namespace PokaList.Application.Dtos
         [Required]
         [MinLength(5), MaxLength(50)]
         public string Title { get; set; }
+        public string TitlePtBr { get; set; }
         public Status Status { get; set; }
+        public bool Default { get; set; }
         public DateTime? DateFinished { get; set; }
         public bool Favorite { get; set; }
         public string Description { get; set; }

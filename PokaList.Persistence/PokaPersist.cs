@@ -47,27 +47,27 @@ namespace PokaList.Persistence
             if (countryId == 2)
             {
 
-                var newGroup = new Group { Title = "Prazeres", UserId = userId };
+                var newGroup = new Group { Title = "Pleasures", TitlePtBr = "Prazeres", Default = true, UserId = userId };
                 _context.Groups.Add(newGroup);
                 _context.SaveChanges();
 
                 _context.Pokas.AddRange(
-                    new Poka { Title = "Andar descalço na areia da praia", Description = "", GroupId = newGroup.Id, UserId = userId },
-                    new Poka { Title = "Voar de balão", Description = "", GroupId = newGroup.Id, UserId = userId },
-                    new Poka { Title = "Andar de pedalinho", Description = "", GroupId = newGroup.Id, UserId = userId },
-                    new Poka { Title = "Tomar banho de cachoeira", Description = "", GroupId = newGroup.Id, UserId = userId },
-                    new Poka { Title = "Ver o nascer do sol", Description = "", GroupId = newGroup.Id, UserId = userId }
+                    new Poka { Title = "Walking Barefoot on the Beach", TitlePtBr = "Andar descalço na areia da praia", Default = true, GroupId = newGroup.Id, UserId = userId },
+                    new Poka { Title = "Balloon Fly", TitlePtBr = "Voar de balão", Default = true, GroupId = newGroup.Id, UserId = userId },
+                    new Poka { Title = "Pedal Boat", TitlePtBr = "Andar de pedalinho", Default = true, GroupId = newGroup.Id, UserId = userId },
+                    new Poka { Title = "Bathe in Waterfall", TitlePtBr = "Tomar banho de cachoeira", Default = true, GroupId = newGroup.Id, UserId = userId },
+                    new Poka { Title = "See the Sunrise", TitlePtBr = "Ver o nascer do sol", Default = true, GroupId = newGroup.Id, UserId = userId }
                  );
                 _context.SaveChanges();
 
-                newGroup = new Group { Title = "Comidas", UserId = userId };
+                newGroup = new Group { Title = "Food", TitlePtBr = "Comidas", Default = true, UserId = userId };
                 _context.Groups.Add(newGroup);
                 _context.SaveChanges();
 
                 _context.Pokas.AddRange(
-                    new Poka { Title = "Beber um chopp bem gelado a tardinha", Description = "", GroupId = newGroup.Id, UserId = userId },
-                    new Poka { Title = "Comer a cebola do Outback", Description = "", GroupId = newGroup.Id, UserId = userId },
-                    new Poka { Title = "Tomar café na cama", Description = "", GroupId = newGroup.Id, UserId = userId }
+                    new Poka { Title = "Drink a cold beer in the afternoon", TitlePtBr = "Beber um chopp bem gelado a tardinha", Default = true, GroupId = newGroup.Id, UserId = userId },
+                    new Poka { Title = "Eating the Outback Onion", TitlePtBr = "Comer a cebola do Outback", Default = true, GroupId = newGroup.Id, UserId = userId },
+                    new Poka { Title = "Coffee in bed", TitlePtBr = "Tomar café na cama", Default = true, GroupId = newGroup.Id, UserId = userId }
                  );
                 _context.SaveChanges();
 

@@ -17,5 +17,6 @@ namespace PokaList.Domain.Identity
         public string StatusText { get; set; }
         public IEnumerable<UserRole> UserRoles { get; set; }
         public int? LoveUserId { get; set; }
+        public bool socialLogin { get; set; }
     }
 }

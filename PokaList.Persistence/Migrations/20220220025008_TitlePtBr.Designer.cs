@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PokaList.Persistence.Contexts;
 
 namespace PokaList.Persistence.Migrations
 {
     [DbContext(typeof(PokaListContext))]
-    partial class PokaListContextModelSnapshot : ModelSnapshot
+    [Migration("20220220025008_TitlePtBr")]
+    partial class TitlePtBr
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -107,13 +109,7 @@ namespace PokaList.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<bool>("Default")
-                        .HasColumnType("tinyint(1)");
-
                     b.Property<string>("Title")
-                        .HasColumnType("text");
-
-                    b.Property<string>("TitlePtBr")
                         .HasColumnType("text");
 
                     b.Property<int>("UserId")
@@ -271,9 +267,6 @@ namespace PokaList.Persistence.Migrations
 
                     b.Property<DateTime?>("DateFinished")
                         .HasColumnType("datetime");
-
-                    b.Property<bool>("Default")
-                        .HasColumnType("tinyint(1)");
 
                     b.Property<string>("Description")
                         .HasColumnType("text");

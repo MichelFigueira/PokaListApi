@@ -6,5 +6,7 @@
         public string Password { get; set; }
         public string Name { get; set; }
         public string DefaultData { get; set; }
+        public bool socialLogin { get; set; }
+        public string PhotoURL { get; set; }
     }
 }

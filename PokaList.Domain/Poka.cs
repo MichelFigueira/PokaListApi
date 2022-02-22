@@ -8,7 +8,9 @@ namespace PokaList.Domain
     {
         public int Id { get; set; }
         public string Title { get; set; }
+        public string TitlePtBr { get; set; }
         public string Description { get; set; }
+        public bool Default { get; set; }
         public Status Status { get; set; }
         public DateTime? DateFinished { get; set; }
         public bool Favorite { get; set; }
