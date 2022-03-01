@@ -27,6 +27,7 @@ namespace PokaList.Application
             {
                 var poka = _mapper.Map<Poka>(model);
                 poka.UserId = userId;
+                poka.TitlePtBr = poka.Title;
 
                 _defaultPersist.Add<Poka>(poka);
 
@@ -52,6 +53,7 @@ namespace PokaList.Application
 
                 model.Id = poka.Id;
                 model.UserId = poka.UserId;
+                model.TitlePtBr = poka.Title;
 
                 _mapper.Map(model, poka);
 
