@@ -8,7 +8,7 @@ namespace PokaList.Application.Dtos
     {
         public int Id { get; set; }
         [Required]
-        [MinLength(5), MaxLength(50)]
+        [MinLength(2), MaxLength(50)]
         public string Title { get; set; }
         public string TitlePtBr { get; set; }
         public Status Status { get; set; }
