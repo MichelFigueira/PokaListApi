@@ -53,7 +53,8 @@ namespace PokaList.Application
 
                 model.Id = poka.Id;
                 model.UserId = poka.UserId;
-                model.TitlePtBr = poka.Title;
+
+                if (model.TitlePtBr is null) { model.TitlePtBr = poka.Title; }
 
                 _mapper.Map(model, poka);
 
