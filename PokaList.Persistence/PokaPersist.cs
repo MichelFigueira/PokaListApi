@@ -24,6 +24,7 @@ namespace PokaList.Persistence
 
             query = query
                 .Where(x => (x.Title.ToLower().Contains(pageParams.Term.ToLower()) ||
+                             x.TitlePtBr.ToLower().Contains(pageParams.Term.ToLower()) ||
                              x.Group.Title.ToLower().Contains(pageParams.Term.ToLower())) &&
                              x.UserId == userId)
                 .OrderBy(e => e.Id);
