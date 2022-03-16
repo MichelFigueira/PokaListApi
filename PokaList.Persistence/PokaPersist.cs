@@ -44,10 +44,12 @@ namespace PokaList.Persistence
         public void CreateDefaultPokas(int userId, int countryId)
         {
 
-            if (countryId == 2)
             {
+                var newGroup = new Group { Title = "Custom", TitlePtBr = "Personalizado", Default = true, UserId = userId };
+                _context.Groups.Add(newGroup);
+                _context.SaveChanges();
 
-                var newGroup = new Group { Title = "Pleasures", TitlePtBr = "Prazeres", Default = true, UserId = userId };
+                newGroup = new Group { Title = "Pleasures", TitlePtBr = "Prazeres", Default = true, UserId = userId };
                 _context.Groups.Add(newGroup);
                 _context.SaveChanges();
 
