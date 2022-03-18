@@ -1,8 +1,9 @@
 # PokaListApi
 
-To start, just download the projects and run the commands `npm install` and `npm start`.
+To start you need MySQL and the steps below:<br>
+- Configure Connection String to database in `appsettings.json`
+- Run the EFCore migration `Update-Database`
 
-Then navigate to `http://localhost:4200/`
 
 <br>
-Project back-end: https://github.com/MichelFigueira/PokaListApi
+Project front-end: https://github.com/MichelFigueira/PokaListWeb
